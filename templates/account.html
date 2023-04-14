@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block title %}
+Аккаунт/Профіль
+{% endblock %}
+
+{% block body %}
+    <div class="card cube-form2 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+        <div class="card-header"><strong>Аккаунт {{current_user.name}}</strong></div>
+            <div class="card-body">
+                <h5 class="card-title center">Основна інформація</h5>
+                <p class="card-text">
+                    <strong>Ідентифікатор користувача: </strong>{{current_user.id}}
+                    <br><strong>Ім'я користувача: </strong>{{current_user.name}}
+                    <br><strong>Адреса електронної пошти: </strong>{{current_user.email}}
+                    <br><strong>Адресу електронної пошти: </strong>
+                    {% if current_user.email_confirm%}
+                    Підтверджено
+                    {% else %}
+                    Не Підтверджено
+                    <a class="p-2" style="color: #5863F8" href="/confirm_email"> Підтвердити</a>
+                    {% endif %}
+                    <br><strong>Дата реєстрації: </strong>{{current_user.join_date}}
+                    <br><strong>План підписки: </strong>{{current_user.plan}}
+                </p>
+                <a href="/logout" class="btn btn-primary">Вийти з аккаунту</a>
+            </div>
+        </div>
+        <br>
+        {% for article in articles %}
+            {% if article.author == current_user.id%}
+                <br><br><div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                    <div class="card-header"><strong>{{article.title}}</strong></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{article.short}}</h5>
+                        <p class="card-text">{{current_user.name}} {{article.date.date()}}</p>
+                        <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+{% endblock%}
