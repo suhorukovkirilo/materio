@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+{% block title %}
+Аккаунт/Профіль {{user.name}}
+{% endblock %}
+
+{% block body %}
+    <div class="card cube-form2 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+        <div class="card-header"><strong>Аккаунт {{current_user.name}}</strong></div>
+            <div class="card-body">
+                <h5 class="card-title center">Основна інформація</h5>
+                <p class="card-text">
+                    <strong>Ідентифікатор користувача: </strong>{{user.id}}
+                    <br><strong>Ім'я користувача: </strong>{{user.name}}
+                    <br><strong>Дата реєстрації: </strong>{{user.join_date}}
+                    <br><strong>План підписки: </strong>{{user.plan}}
+                </p>
+            </div>
+        </div>
+        <br>
+        {% for article in articles %}
+            {% if article.author == user.id and article.public%}
+                <br><br><div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                    <div class="card-header"><strong>{{article.title}}</strong></div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{article.short}}</h5>
+                        <p class="card-text">{{user.name}} {{article.date.date()}}</p>
+                        <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+{% endblock%}
