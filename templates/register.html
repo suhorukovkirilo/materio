@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block title %}
+Реєстрація
+{% endblock %}
+
+{% block body %}
+    <form class="container center" method="post">
+        <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" alt="" width="222" height="100">
+        <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #171D1C">Register</font></font></h1>
+        {% block message %}{% endblock %}
+        <div class="form-floating center cube-form">
+            <input name="username" class="form-control" placeholder="username">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ім'я користувача</font></font></label>
+        </div>
+
+        <div class="form-floating center cube-form">
+            <input name="email" type="email" class="form-control" placeholder="name@example.com">
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Адреса електронної пошти</font></font></label>
+        </div>
+
+        <div class="form-floating center cube-form">
+            <input name="password" type="password" class="form-control" placeholder="Пароль">
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пароль</font></font></label>
+        </div>
+
+        <div class="form-floating center cube-form">
+            <input name="confirm-password" type="password" class="form-control" placeholder="Підтвердження паролю">
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Підтвердження паролю</font></font></label>
+        </div>
+
+        <div class="checkbox mb-3">
+          <label><input type="checkbox" value="remember-me"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пам'ятай мене</font></font></label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-success center cube-form" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зареєструватися</font></font></button>
+        <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
+        <a class="p-2" style="color: #4CB944" href="/login">Вже є аккаунт? Увійти</a>
+    </form>
+{% endblock %}
