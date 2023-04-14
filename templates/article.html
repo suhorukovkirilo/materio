@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block title %}
+Стаття: {{article.title}}
+{% endblock %}
+{% block body %}
+    <div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+        <div class="card-header"><strong>{{article.title}}</strong></div>
+        <div class="card-body">
+            <h4 class="card-title center">{{article.short}}</h4>
+            <h6 class="card-text center">{{article.text}}</h6>
+            <br><p class="card-text">{{author.name}} {{article.date.date()}}</p>
+            <a href="/account/{{author.name}}" class="btn btn-primary">Читати інші статті автора</a>
+        </div>
+    </div>
+{% endblock %}
