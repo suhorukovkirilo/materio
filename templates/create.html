@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block title %}
+Реєстрація
+{% endblock %}
+
+{% block body %}
+    <form class="container center" method="post">
+        <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #171D1C">Create Article</font></font></h1>
+        {% block message%}{% endblock %}
+        <div class="form-floating center cube-form">
+            <input name="title" class="form-control" placeholder="title">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Заголовок</font></font></label>
+        </div>
+
+        <div class="form-floating center cube-form">
+            <textarea name="short" class="form-control" placeholder="short" style="height: 200%;"></textarea>
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Коротка інформація</font></font></label>
+        </div>
+
+        <div class="form-floating center cube-form">
+            <textarea name="text" class="form-control" placeholder="text" style="height: 200%;"></textarea>
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Текст</font></font></label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label><input type="checkbox" name="public"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Публічне</font></font></label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-success center cube-form" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зареєструватися</font></font></button>
+        <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
+        <a class="p-2" style="color: #4CB944" href="/login">Вже є аккаунт? Увійти</a>
+    </form>
+{% endblock %}
