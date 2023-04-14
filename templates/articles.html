@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block title %}
+Публічні статті
+{% endblock %}
+{% block body %}
+    {% for article in articles %}
+        {% if article.public%}
+            <div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                <div class="card-header"><strong>{{article.title}}</strong></div>
+                <div class="card-body">
+                    <h5 class="card-title">{{article.short}}</h5>
+                    <p class="card-text">{{User.query.filter_by(id=article.author).first().name}} {{article.date.date()}}</p>
+                    <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
