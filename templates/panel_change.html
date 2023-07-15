@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Панель Адміна | Змінювання
+{% endblock %}
+
+{% block body %}
+    {% if table == "User" %}
+        <div class="cube-form center" style="animation: form 2s ease-in-out forwards; opacity: 0;">
+            <h1 class="center">Зміна даних користувача: {{response.name}}</h1>
+            <form method="post" class="center" enctype="multipart/form-data">
+                <div class="form-floating center cube-form3">
+                    <input name="name" class="form-control" placeholder="Ім'я користувача" required="required" minlength="4" value="{{response.name}}">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ім'я користувача</font></font></label>
+                </div>
+                <div class="form-floating center cube-form3">
+                    <input name="email" type="email" class="form-control" placeholder="Електронна адреса" required="required" minlength="4" value="{{response.email}}">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Електронна адреса</font></font></label>
+                </div>
+                <div class="checkbox mb-3">
+                    {% if response.email_confirm %}
+                        <label><input type="checkbox" value="confirm" checked="checked"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Електронну пошту підтверджено</font></font></label>
+                    {% else %}
+                        <label><input type="checkbox" value="confirm"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Електронну пошту підтверджено</font></font></label>
+                    {% endif %}
+                </div>
+                <div class="form-floating center cube-form3">
+                    <input name="password" type="password" class="form-control" placeholder="Пароль(Необов'язково)" minlength="8">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пароль(Необов'язково)</font></font></label>
+                </div>
+                <br><br><button class="btn btn-lg btn-primary btn-success center" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зберегти</font></font></button>
+                <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
+            </form>
+        </div>
+    {% else %}
+        <div class="cube-form center" style="animation: form 2s ease-in-out forwards; opacity: 0;">
+            <h1 class="center">Зміна даних артикля: {{response.name}}</h1>
+            <form method="post" class="center">
+                <div class="form-floating center">
+                    <input name="title" class="form-control" placeholder="Заголовок" required="required" minlength="4" value="{{response.name}}">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ім'я користувача</font></font></label>
+                </div>
+                <div class="form-floating center">
+                    <input name="title" class="form-control" placeholder="Заголовок" required="required" minlength="4" value="{{response.name}}">
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ім'я користувача</font></font></label>
+                </div>
+                <div class="form-floating center">
+                    <textarea name="short" class="form-control" placeholder="short" style="height: 200%;" required="required"></textarea>
+                    <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Коротка інформація</font></font></label>
+                </div>
+            <script src="{{url_for('static', filename='js/create.js')}}"></script>
+            <div class="form-floating center">
+                <textarea name="tags" class="form-control" placeholder="text" required="required"></textarea>
+                <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Теги ( .. між тегами)</font></font></label>
+            </div>
+            <div class="checkbox mb-3">
+                <label><input type="checkbox" name="public"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Публічне</font></font></label>
+            </div>
+            <div class="center cube-form">
+                <input name="picture" class="form-control" type="file">
+            </div>
+            <br><button class="btn btn-lg btn-primary btn-success center cube-form" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зберегти</font></font></button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
