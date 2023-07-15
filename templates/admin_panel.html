@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block title %}
+Панель Адміна
+{% endblock %}
+
+{% block body %}
+    <h1 class="cube-form center">Панель Адміна</h1>
+    <div class="cube-form center">Панель Адміна</div>
+    <br><br><br>
+    <div style="width: 40%; float: left; margin-left: 5%; margin-right: 5%">
+        <form class="center" method="get" style="float: left; width: 40%; animation: form 2s ease-in-out forwards; opacity: 0;" id="form1">
+            <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зміна даних користувача</font></font></h1>
+            <div class="form-floating center">
+                <input name="value1" type="text" class="form-control" placeholder="Поле змінни користувача" required="required">
+                <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Поле зміни даних користувача</font></font></label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-success center" type="submit"><font style="vertical-align: inherit;">Змінити</font></button>
+        </form>
+        <form class="center" method="get" style="float: right; width: 40%; animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 0.5s;" id="form2">
+            <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Видалення користувача</font></font></h1>
+            <div class="form-floating center">
+                <input name="value2" type="text" class="form-control" placeholder="Поле видалення користувача" required="required">
+                <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Поле видалення користувача</font></font></label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-success center" type="submit"><font style="vertical-align: inherit;">Видалити</font></button>
+        </form>
+    </div>
+    <div style="width: 40%; float: right; margin-left: 5%; margin-right: 5%">
+        <form class="cube-form center" method="get" style="float: left; width: 40%; animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 1s;" id="form3">
+            <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Зміна даних артикля</font></font></h1>
+            <div class="form-floating center">
+                <input name="value3" type="text" class="form-control" placeholder="Поле змінни артикля" required="required">
+                <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Поле зміни даних артикля</font></font></label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-success center" type="submit"><font style="vertical-align: inherit;">Змінити</font></button>
+        </form>
+        <form class="cube-form center" method="get" style="float: right; width: 40%; animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 1.5s;" id="form4">
+            <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Видалення артикля</font></font></h1>
+            <div class="form-floating center">
+                <input name="value4" type="text" class="form-control" placeholder="Поле видалення артикля" required="required">
+                <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Поле видалення артикля</font></font></label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-success center" type="submit"><font style="vertical-align: inherit;">Видалити</font></button>
+        </form>
+    </div>
+    <script src="{{url_for('static', filename='js/admin_panel.js')}}"></script>
+    <br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
