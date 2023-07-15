@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{% block title %}
+Зміна нотатки/статті
+{% endblock %}
+
+{% block body %}
+    <form class="container center" method="post" style="animation: form 2s ease-in-out forwards; opacity: 0;">
+        <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" alt="" width="222" height="100">
+        <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: #171D1C">Change Article</font></font></h1>
+        {% for message in messages %}
+            {% if message != "Нотатку/Статтю успішно змінено" %}
+                <br><div class="fw-normal cube-form center" style="border-radius: 25px; background-color: #FFCCCB; width: 28%;"><h3>{{message}}</h3></div>
+            {% else %}
+                <br><div class="fw-normal cube-form center" style="border-radius: 25px; background-color: #4CB944;color: white; width: 28%;"><h3>{{message}}</h3></div>
+            {% endif %}
+        {% endfor %}
+        <div class="form-floating center cube-form">
+            <input name="title" class="form-control" placeholder="title">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Заголовок</font></font></label>
+        </div>
+        <div class="form-floating center cube-form">
+            <textarea name="short" class="form-control" placeholder="short" style="height: 200%;"></textarea>
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Коротка інформація</font></font></label>
+        </div>
+
+        <div class="form-floating center {% if current_user.plan == 'free' %}cube-form{% else %} cube-form3 {% endif %}">
+                <textarea name="text" class="form-control" placeholder="text" style="height: 200%;"></textarea>
+            {% if current_user.plan == "free" %}
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Текст</font></font></label>
+            {% endif %}
+        </div>
+        {% if current_user.plan != "free" %}
+            <script src="{{url_for('static', filename='js/create.js')}}"></script>
+        {% endif %}
+
+        <div class="form-floating center cube-form">
+            <textarea name="tags" class="form-control" placeholder="tags" style="height: 200%;"></textarea>
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Теги ( .. між тегами)</font></font></label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label><input type="checkbox" name="public"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Публічне</font></font></label>
+        </div>
+        <div class="cube-form center">{{ recaptcha }}</div>
+        <button class="btn btn-lg btn-primary btn-success center cube-form" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 3s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Змінити</font></font></button>
+        <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
+        <a class="p-2" style="color: #4CB944" href="/articles">Читати усі нотатки</a>
+    </form>
+{% endblock %}
