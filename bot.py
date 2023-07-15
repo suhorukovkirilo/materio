@@ -5,7 +5,7 @@ from time import sleep
 from app import app, database
 from models import User
 
-bot = telebot.TeleBot("6007539788:AAEK58jh813rBjNtIq4G6fnUeKoeBjhaSgY")
+bot = telebot.TeleBot("")
 events = {}
 money = {}
 @bot.message_handler(commands=['start'])
