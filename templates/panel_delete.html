@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Панель Адміна | Видалення
+{% endblock %}
+
+{% block body %}
+    <div class="cube-form center" style="animation: form 1s ease-in-out forwards; opacity: 0;">
+    <h1 class="center">Ви впевнені, що хочете видалити?</h1>
+    <br><br><br><form method="post" class="center">
+        <button class="btn btn-lg btn-primary btn-success" style="width: 250%; max-width: 200px;" type="submit"><font style="vertical-align: inherit;">Так</font></button>
+    </form>
+    <br><br><form method="get" action="/panel" class="center">
+        <button class="btn btn-lg btn-primary btn-success" style="width: 250%; max-width: 200px; animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" type="submit"><font style="vertical-align: inherit;">Ні</font></button>
+    </form>
+    </div>
+{% endblock%}
