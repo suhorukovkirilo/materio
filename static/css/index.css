@@ -6,11 +6,150 @@
     width: 40%
 }
 
+.cube-form2-5 {
+    width: 43%
+}
+
 .cube-form3 {
     width: 50%
+}
+.article-pic-input {
+  align-items: center;
+  justify-content: center;
 }
 .center {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+.one-line {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.invisible-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.input-box {
+    position: relative;
+    height: 42px;
+    max-width: 300px;
+    width: 100%;
+    background: #fff;
+    margin: 0 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.input-box img,
+.input-box .button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.input-box img {
+    left: 7px;
+    font-size: 30px;
+    color: #707070;
+}
+.input-box input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    padding: 0 100px 0 45px;
+    background-color: transparent;
+}
+.input-box .button {
+    font-style: normal;
+    right: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 6px;
+    background-color: #4070f4;
+    cursor: pointer;
+}
+
+.input-box .button:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+.my-card {
+    border-radius: 10%;
+}
+.my-card-head {
+    border-radius: 20%;
+}
+
+details {
+  border: 3px solid;
+  padding: 0 1rem;
+  background: white;
+  width: 30%;
+  max-width: 550px;
+  border-radius: 15px;
+}
+details[open] {
+    padding-bottom: 1em;
+}
+
+summary {
+  padding: 1rem 2em 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 113.5%;
+}
+
+
+@keyframes form{
+    0% {
+        transform: translateY(500px);
+        opacity: 1;
+    }
+    90% {
+        transform: translateY(-1.5%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes form-left {
+    0% {
+        transform: translateX(-2000px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+@keyframes form-right {
+    0% {
+        transform: translateX(1000px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+@keyframes visible{
+    100% {
+        opacity: 1;
+    }
 }
