@@ -5,38 +5,209 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card cube-form2 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+    <div class="card cube-form3 center" style="text-align: left; animation: form-left 2s ease-in-out forwards; opacity: 0; overflow: hidden" xmlns="http://www.w3.org/1999/html">
         <div class="card-header"><strong>Аккаунт {{current_user.name}}</strong></div>
-            <div class="card-body">
+        <div class="card-body">
                 <h5 class="card-title center">Основна інформація</h5>
-                <p class="card-text">
-                    <strong>Ідентифікатор користувача: </strong>{{current_user.id}}
-                    <br><strong>Ім'я користувача: </strong>{{current_user.name}}
-                    <br><strong>Адреса електронної пошти: </strong>{{current_user.email}}
-                    <br><strong>Адресу електронної пошти: </strong>
-                    {% if current_user.email_confirm%}
-                    Підтверджено
-                    {% else %}
-                    Не Підтверджено
-                    <a class="p-2" style="color: #5863F8" href="/confirm_email"> Підтвердити</a>
-                    {% endif %}
-                    <br><strong>Дата реєстрації: </strong>{{current_user.join_date}}
-                    <br><strong>План підписки: </strong>{{current_user.plan}}
+                <p class="card-text one-line">
+                    <div class="row">
+                        <div class="col-8">
+                            <strong>Ідентифікатор користувача: </strong>{{current_user.id}}
+                            <br><strong>Ім'я користувача: </strong>{{current_user.name}}
+                            <br><strong>Адреса електронної пошти: </strong>{{current_user.email}}
+                            <br><strong>Адресу електронної пошти: </strong>
+                            {% if current_user.email_confirm%}
+                            Підтверджено
+                            {% else %}
+                            Не Підтверджено
+                            <a class="p-2" style="color: #5863F8" href="/verify"> Підтвердити</a>
+                            {% endif %}
+                            <br><strong>Дата реєстрації: </strong>{{current_user.join_date}}
+                            <br><strong>План підписки: </strong>
+                            {% if current_user.plan == "free" %}
+                                {{current_user.plan}}
+                            {% else %}
+                                {{current_user.plan.split()[0]}} дійсний до {{current_user.plan.split()[1]}}
+                            {% endif %}
+                            <br><a class="p-2" style="color: #5863F8" href="/change_data">Забули пароль? Відновити</a>
+                        </div>
+                        <div class="col-1">
+                            <img src="{{ profile_pic }}" width="150" height="150">
+                            <form method="post" enctype="multipart/form-data">
+                                <input type="file" name="photo" style="width: 300px;">
+                                <button type="submit" class="invisible-button"><a class="btn btn-primary">Завантажити</a></button>
+                            </form>
+                        </div>
+                    </div>
                 </p>
                 <a href="/logout" class="btn btn-primary">Вийти з аккаунту</a>
             </div>
-        </div>
-        <br>
-        {% for article in articles %}
-            {% if article.author == current_user.id%}
-                <br><br><div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
-                    <div class="card-header"><strong>{{article.title}}</strong></div>
+    </div>
+    <br><div class="center cube-form" style="border: 3px solid #5863F8; background: white; border-radius: 15px;"><a class="btn" href="/page">Створіть свою гарну сторінку профілю→</a></div>
+    <br><div class="cube-form center">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="materioconnectbot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+        <script type="text/javascript">
+            function onTelegramAuth(user) {
+                window.location.href='/tme/' + user.id
+            }
+        </script>
+    </div>
+    <br>{% for article in articles %}
+        {% if article.author == current_user.id %}
+            <br><br><div class="card cube-form3 center" style="text-align: left; animation: form-{% if articles.index(article) % 2 == 0 %}left{% else %}right{% endif %} 3s ease-in-out forwards; opacity: 0; animation-delay: {{articles.index(article)}}s" xmlns="http://www.w3.org/1999/html">
+                <div class="card-header"><strong>{{article.title}}</strong></div>
+                <div class="card-body">
+                    <h5 class="card-title">{{article.short}}</h5>
+                    <p class="card-text">{{current_user.name}} {{article.date.date()}}</p>
+                    <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                    <a href="/change/{{article.id}}" class="btn btn-primary">Змінити</a>
+                    <a href="/delete/{{article.id}}" class="btn btn-primary">Видалити</a>
+                    <br><br><h5 class="card-text">Теги:</h5>
+                    {% for tag in article.tags.split("..") %}
+                        <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            {% if article.id|str in current_user.reposts.split() %}
+                <br><br><div class="card cube-form3 center" style="animation: form-{% if articles.index(article) % 2 == 0 %}left{% else %}right{% endif %} 3s ease-in-out forwards; opacity: 0; animation-delay: {{articles.index(article)}}s">
+                    <div class="card-header">Ви поширили це</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{article.short}}</h5>
-                        <p class="card-text">{{current_user.name}} {{article.date.date()}}</p>
-                        <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                        <div class="card center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                            <div class="card-header"><strong>{{article.title}}</strong></div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{article.short}}</h5>
+                                <p class="card-text">{{current_user.name}} {{article.date.date()}}</p>
+                                <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                                <br><br><h5 class="card-text">Теги:</h5>
+                                {% for tag in article.tags.split("..") %}
+                                    <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endif %}
-        {% endfor %}
+        {% endif %}
+    {% endfor %}
+  <br><div class="row row-cols-1 row-cols-md-3 mb-3 text-center" style="margin-left: 15%; margin-right: 15%">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/місяць</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$5<small class="text-body-secondary fw-light">/місяць</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+              <li>Додавати обкладинки статтей</li>
+              <li>Додавати статті в обране</li>
+            </ul>
+            <a href="/upgrade/pro місяць за 5$" class="w-100 btn btn-lg btn-primary">Отримати</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-bg-primary border-primary">
+            <h4 class="my-0 fw-normal">VIP</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/місяць</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+              <li>Додавати обкладинки статтей</li>
+              <li>Додавати статті в обране</li>
+              <li>Доступ до професійного редактору тексту</li>
+            </ul>
+            <a href="/upgrade/vip місяць за 15$" class="w-100 btn btn-lg btn-primary">Отримати</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><div class="row row-cols-1 row-cols-md-3 mb-3 text-center" style="margin-left: 15%; margin-right: 15%">
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Free</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/рік</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Pro</h4>
+          </div>
+          <div class="card-body">
+              <h1 class="card-title pricing-card-title"><del>$60</del> $50<small class="text-body-secondary fw-light">/рік</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+              <li>Додавати обкладинки статтей</li>
+              <li>Додавати статті в обране</li>
+            </ul>
+            <a href="/upgrade/pro рік за 50$" class="w-100 btn btn-lg btn-primary">Отримати</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+          <div class="card-header py-3 text-bg-primary border-primary">
+            <h4 class="my-0 fw-normal">VIP</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title"><del>$180</del> $150<small class="text-body-secondary fw-light">/місяць</small></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Створювати, редагувати та видаляти статті/нотатки</li>
+              <li>Шукати статті інших авторів</li>
+              <li>Дивитися статті інших</li>
+              <li>Ставити лайки, коментувати та підписуватися</li>
+              <li>Ставити аватар профілю</li>
+              <li>Додавати обкладинки статтей</li>
+              <li>Додавати статті в обране</li>
+              <li>Доступ до професійного редактору тексту</li>
+            </ul>
+            <a href="/upgrade/vip рік за 150$" class="w-100 btn btn-lg btn-primary">Отримати</a>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock%}
