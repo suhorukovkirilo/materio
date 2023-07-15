@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block title %}
+Пошук
+{% endblock %}
+{% block body %}
+<h1 class="cube-form2 center" style="color: #171D1C;"> Пошук за тегами:</h1>
+<div class="cube-form2 center">
+    {% for tag in tags %}
+    <a class="btn btn-primary" style="background-color: #5863F8;">{{tag}}</a>
+    {% endfor %}
+</div>
+<br>{% for article in articles %}
+{% if article.public %}
+<br><div class="card cube-form3 center" style="text-align: left; animation: form-{% if articles.index(article) % 2 == 0 %}left{% else %}right{% endif %} 3s ease-in-out forwards; opacity: 0; animation-delay: {{articles.index(article)}}s" xmlns="http://www.w3.org/1999/html">
+    <div class="card-header"><strong>{{article.title}}</strong></div>
+    <div class="card-body">
+        <h5 class="card-title">{{article.short}}</h5>
+        <p class="card-text">{{User.query.filter_by(id=article.author).first().name}} {{article.date.date()}}</p>
+        <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+        <br><br><h5 class="card-text">Теги:</h5>
+        {% for tag in article.tags.split("..") %}
+        <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
