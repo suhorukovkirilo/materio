@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block title %}
+Оплата тарифу: {{plan}}
+{% endblock %}
+
+{% block body %}
+<h1 class="center cube-form3">Оплата за тарифом: {{plan}} через платіжну систему <strong>Tig pay</strong></h1>
+  <br><div class="card cube-form2 center" style="animation: form 2.5s ease-in-out forwards; opacity: 0;" xmlns="http://www.w3.org/1999/html" xmlns="">
+        <div class="card-header"><strong>Для вірної оплати тарифу:</strong></div>
+    <div class="card-body">
+      <ul class="list-unstyled mt-3 mb-4">
+        <li>Перейдіть до телеграм боту <a href="https://t.me/tigwalletbot" target="_blank" >@tigwalletbot</a></li>
+              <li>Зареєстуйтеся</li>
+              <li>Поповніть рахунок на потрібну суму</li>
+              <li>Введіть боту: <br><code>/pay materio {{current_user.name}} {{plan_type}} {{plan_time}}</code></li>
+                <li>Якщо все вірно, то тариф нарахується(може бути затримка до 15 хвилин)</li>
+            </ul>
+    </div>
+  </div>
+{% endblock %}
