@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+
+{% block title %}
+HTML сторінка профілю {{user.name}}
+{% endblock %}
+
+{% block body %}
+    <div  class="container" style="background-color: white; border: 2px solid #4CB944; border-radius: 20px; animation: form-left 3s ease-in-out forwards; opacity: 0;">
+        {{user.page | safe}}
+    </div>
+{% endblock %}
