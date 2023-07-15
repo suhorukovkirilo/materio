@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Допомога
+{% endblock %}
+{% block body %}
+    <h1 class="center" style="animation: visible 1s ease-in-out forwards; opacity: 0;">Центр Допомоги</h1>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 0.5s">
+        <summary>Як шукати на сайті?</summary>
+        <ol>
+            <li>На будь-якій сторінці сайту знайдіть на верхній панелі поле для пошуку</li>
+            <li>Введіть теги за якими бажаєте шукати (між тегами - ..)</li>
+            <li>Натисніть Search</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 1s;">
+        <summary>Як зареєструватися?</summary>
+        <ol>
+            <li>Перейдіть на <a href="/register" target="_blank">сторінку</a></li>
+            <li>Заповніть усі поля та пройдіть ReCaptcha</li>
+            <li>Натисніть зареєструватися</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 1.5s;">
+        <summary>Як змінити пароль, нікнейм, ел. пошту?</summary>
+        <ol>
+            <li>Перейдіть на <a href="/change_data" target="_blank">сторінку</a></li>
+            <li>Якщо ви не авторизовані, то ведіть ім'я користувача або електронну адресу у поле й натисніть відправити листа. Інакше, просто натисніть цю кнопку.</li>
+            <li>Знайдіть код на пошті, яку вказували при реєстрації</li>
+            <li>Поверніться на сайт і якщо ви не авторизовані, то знову введіть ті самі дані, але у поле нижче(якщо ви авторизовані, то можете зімнити також свій нікнейм або ел. пошту)</li>
+            <li>Введіть пароль, якщо хочете його змінити та код для підтвердження оновлення</li>
+            <li>Пройдіть ReCaptcha та натисніть підтвердити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 2s;">
+        <summary>Як підтвердити ел. адресу?</summary>
+        <ol>
+            <li>Перейдіть на <a href="/verify" target="_blank">сторінку</a></li>
+            <li>Натисніть відправити листа</li>
+            <li>Введіть код у поле</li>
+            <li>Пройдіть ReCaptcha та натисніть підтвердити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 2.5s;">
+        <summary>Як додати аватар профілю?</summary>
+        <ol>
+            <li>Перейдіть до свого аккаунту</li>
+            <li>Натисніть Огляд...</li>
+            <li>Виберіть фотографію для завантаження</li>
+            <li>Натисніть завантажити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 3s;">
+        <summary>Як додати статтю/нотатку?</summary>
+        <ol>
+            <li>На верхній панелі натисніть Create</li>
+            <li>Заповніть поля: назва, опис, текст, теги(опціонально) та обкладинка(якщо є потрібний план)</li>
+            <li>Виберіть, чи буде ваша нотатка публічною, чи ні</li>
+            <li>Пройдіть ReCaptcha та натисніть створити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 3.5s;">
+        <summary>Як змінити статтю/нотатку?</summary>
+        <ol>
+            <li>Перейдіть у свій аккаунт та виберіть потрібну статтю/нотатку</li>
+            <li>Натисніть змінити</li>
+            <li>Змініть ті поля, які потрібно змінити, ті, що не потрібно змінювати залиште порожніми</li>
+            <li>Пройдіть ReCaptcha та натисніть змінити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 4s;">
+        <summary>Як видалити статтю/нотатку?</summary>
+        <ol>
+            <li>Перейдіть у свій аккаунт та виберіть потрібну статтю/нотатку</li>
+            <li>Натисніть видалити</li>
+        </ol>
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 4.5s;">
+        <summary>Де я можу подивитися обрані статті?</summary>
+        На верхній панелі виберіть сторінку Favourites
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 5s;">
+        <summary>Які статті потрапляють на сторінку For You?</summary>
+        На сторінку For You потрапляють статті з ваших підписок
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 5.5s;">
+        <summary>Чи можуть інші користувачі бачити ваші репости?</summary>
+        Так, ваші репости можуть бачити абсолютно усі користувачі.
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 6s;">
+        <summary>Навіщо потрібна Page(гарна сторінка акаунту)?</summary>
+        Цю сторінку ви можете використовувати для опису профілю, перенаправлення на інші сайти через неї або просто, щоб створити дуже гарну сторінку аккаунту
+    </details>
+    <br><details class="center" style="animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: 6.5s;">
+        <summary>Як створити Page(гарна сторінка акаунту)?</summary>
+        Перейдіть на <a href="/page" target="_blank">сторінку</a> та створіть свій HTML код для сторнки
+    </details>
+{% endblock %}
