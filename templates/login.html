@@ -5,26 +5,37 @@
 {% endblock %}
 
 {% block body %}
-    <form class="container center" method="post">
-    <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" alt="" width="222" height="100">
+    <form class="container center" style="animation: form 2s ease-in-out forwards; opacity: 0;" method="post">
+    <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" alt="" width="222" height="100">
     <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Login</font></font></h1>
-    {% block message %}{% endblock %}
+    {% for message in messages %}
+        <br><div class="fw-normal cube-form center" style="border-radius: 25px; background-color: #FFCCCB; width: 28%;"><h3>{{message}}</h3></div>
+    {% endfor %}
     <div class="form-floating center cube-form">
-      <input name="id" class="form-control" placeholder="username or email">
+      <input name="id" class="form-control" placeholder="username or email" required="required" minlength="4">
       <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ім'я користувача або електронна адреса</font></font></label>
     </div>
     <div class="form-floating center cube-form">
-      <input name="password" type="password" class="form-control" placeholder="Пароль">
+      <input name="password" type="password" class="form-control" placeholder="Пароль" required="required" minlength="8">
       <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пароль</font></font></label>
     </div>
-
+    <div class="cube-form center">{{ recaptcha }}</div>
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Пам'ятай мене
       </font></font></label>
     </div>
-        <button class="btn btn-lg btn-primary btn-success center cube-form" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Увійти</font></font></button>
+        <button class="btn btn-lg btn-primary btn-success center cube-form" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 3s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Увійти</font></font></button>
+    <br><br><script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="materioconnectbot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+    <div class="cube-form center">
+        <script type="text/javascript">
+            function onTelegramAuth(user) {
+                window.location.href='/tme/' + user.id
+            }
+        </script>
+    </div>
     <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
     <a class="p-2" style="color: #4CB944" href="/register">Немає аккаунту? Зареєструвати</a>
+    <br><a class="p-2" style="color: #4CB944" href="/change_data">Забули пароль? Відновити</a>
   </form>
 {% endblock %}
