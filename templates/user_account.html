@@ -5,29 +5,71 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card cube-form2 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+    <div class="card cube-form2 center" style="text-align: left; animation: form-left 2s ease-in-out forwards; opacity: 0;" xmlns="http://www.w3.org/1999/html">
         <div class="card-header"><strong>Аккаунт {{current_user.name}}</strong></div>
             <div class="card-body">
                 <h5 class="card-title center">Основна інформація</h5>
-                <p class="card-text">
-                    <strong>Ідентифікатор користувача: </strong>{{user.id}}
-                    <br><strong>Ім'я користувача: </strong>{{user.name}}
-                    <br><strong>Дата реєстрації: </strong>{{user.join_date}}
-                    <br><strong>План підписки: </strong>{{user.plan}}
-                </p>
+                <div class="row">
+                    <div class="col-8">
+                        <form action="{% if current_user.is_authenticated %}/follow/{{user.name}}{% else %}/login{% endif %}" method="{% if current_user.is_authenticated %}post{% else %}get{% endif %}" class="card-text">
+                            <strong>Ідентифікатор користувача: </strong>{{user.id}}
+                            <br><strong>Ім'я користувача: </strong>{{user.name}}
+                            <br><strong>Дата реєстрації: </strong>{{user.join_date}}
+                            <br><strong>План підписки: </strong>{{user.plan}}
+                            <br><h3 class="one-line">{{followers}}</h3>
+                            <img src="{{url_for('static', filename='img/followers.png')}}" width="22" height="25">
+                            <br>{% if followed %}
+                            <button type="submit" style="color: #EFF6E0; background-color: #5863F8;">Відписатися</button>
+                            {% else %}
+                            <button type="submit" style="color: #EFF6E0; background-color: #4CB944;">Підписатися</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                    <div class="col-1">
+                        {% if profile_pic is not none %}
+                            <img src="{{ profile_pic }}" width="150" height="150">
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
-        <br>
+        {% if user.page != "" %}
+        <br><br><div class="center cube-form" style="border: 3px solid #5863F8; background: white; border-radius: 15px; animation: form-right 2s ease-in-out forwards; opacity: 0;"><a class="btn" href="/page/{{user.name}}">Перегляньте гарну сторінку цього профілю→</a></div>
+        {% endif %}
         {% for article in articles %}
             {% if article.author == user.id and article.public%}
-                <br><br><div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                <br><br><div class="card cube-form3 center" style="text-align: left;  animation: form-{% if articles.index(article) % 2 == 0 %}left{% else %}right{% endif %} 3s ease-in-out forwards; opacity: 0; animation-delay: {{articles.index(article)}}s" xmlns="http://www.w3.org/1999/html">
                     <div class="card-header"><strong>{{article.title}}</strong></div>
                     <div class="card-body">
                         <h5 class="card-title">{{article.short}}</h5>
                         <p class="card-text">{{user.name}} {{article.date.date()}}</p>
                         <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                        <br><br><h5 class="card-text">Теги:</h5>
+                        {% for tag in article.tags.split("..") %}
+                            <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+                        {% endfor %}
                     </div>
                 </div>
+            {% else %}
+                {% if article.id|str in user.reposts.split() %}
+                <br><br><div class="card cube-form3 center" style="animation: form-{% if articles.index(article) % 2 == 0 %}left{% else %}right{% endif %} 3s ease-in-out forwards; opacity: 0; animation-delay: {{articles.index(article)}}s">
+                    <div class="card-header">{{user.name}} поширив(ла) це</div>
+                    <div class="card-body">
+                        <div class="card center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
+                            <div class="card-header"><strong>{{article.title}}</strong></div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{article.short}}</h5>
+                                <p class="card-text">{{User.query.filter_by(id=article.author).first().name}} {{article.date.date()}}</p>
+                                <a href="/article/{{article.id}}" class="btn btn-primary">Читати далі</a>
+                                <br><br><h5 class="card-text">Теги:</h5>
+                                {% for tag in article.tags.split("..") %}
+                                    <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
             {% endif %}
         {% endfor %}
 {% endblock%}
