@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block title %}
+HTML сторінка профілю
+{% endblock %}
+
+{% block body %}
+    <form method="post" class="center cube-form" style="animation: form 2s ease-in-out forwards; opacity: 0;">
+        <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s;" alt="" width="222" height="100">
+        <h1> HTML сторінка профілю</h1>
+        <div class="form-floating center" style="width: 80%;">
+                <textarea name="html" class="form-control" placeholder="text" style="height: 200%;" required="required"></textarea>
+            {% if current_user.plan == "free" %}
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Текст</font></font></label>
+            {% endif %}
+        </div>
+        {% if current_user.plan != "free" %}
+            <script>CKEDITOR.replace('text');</script>
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-success center" style="width: 80%; animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 3s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Створити/Змінити</font></font></button>
+        <br><br><a href="/page/{{current_user.name}}" class="btn" style="color: #4CB944;"><h3>Переглянути мою сторінку→</h3></a>
+    </form>
+{% endblock %}
