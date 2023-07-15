@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block title %}
+Підтвердження електронної адреси
+{% endblock %}
+
+{% block body %}
+    <div class="center">
+        <img class="mb-4" src="{{ url_for('static', filename='img/materio-logo.png')}}" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 2s" alt="" width="222" height="100">
+        <h1 class="h3 mb-3 fw-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Verification</font></font></h1>
+        {% for message in messages %}
+            {% if message != "Код надіслано" %}
+                <br><div class="fw-normal cube-form center" style="border-radius: 25px; background-color: #FFCCCB; width: 28%;"><h3>{{message}}</h3></div>
+            {% else %}
+                <br><div class="fw-normal cube-form center" style="border-radius: 25px; background-color: #4CB944;color: white; width: 28%;"><h3>{{message}}</h3></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <form class="center" action="/send-mail" method="post" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 3s;">
+        <button class="btn btn-lg btn-primary btn-success" type="submit" style="width: 20%;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Відправити листа</font></font></button>
+    </form>
+    <br><form class="container center" method="post" style="animation: form 2s ease-in-out forwards; opacity: 0;">
+        <div class="form-floating center cube-form">
+            <input name="code" type="number" class="form-control" placeholder="Код верифікації" required="required" minlength="8">
+            <label ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Код верифікації</font></font></label>
+        </div>
+        <div class="cube-form center">{{ recaptcha }}</div>
+        <button class="btn btn-lg btn-primary btn-success center cube-form" style="animation: visible 1s ease-in-out forwards; opacity: 0; animation-delay: 3s;" type="submit"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Підтвердити</font></font></button>
+        <p class="mt-5 mb-3 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2023</font></font></p>
+    </form>
+{% endblock %}
