@@ -3,14 +3,64 @@
 {% block title %}
 Стаття: {{article.title}}
 {% endblock %}
+
 {% block body %}
-    <div class="card cube-form3 center" style="text-align: left" xmlns="http://www.w3.org/1999/html">
-        <div class="card-header"><strong>{{article.title}}</strong></div>
+<div class="card cube-form3 center"  style="animation: visible 1s ease-in-out forwards; opacity: 0;" xmlns="http://www.w3.org/1999/html" xmlns="">
+        <div class="card-header">
+            {% if article_pic is not none %}
+                <img class="cube-form3" src="{{article_pic}}">
+            {% endif %}
+            <br><strong>{{article.title}}</strong>
+        </div>
         <div class="card-body">
             <h4 class="card-title center">{{article.short}}</h4>
-            <h6 class="card-text center">{{article.text}}</h6>
+            <h6 class="card-text center">{{article.text | safe}}</h6>
             <br><p class="card-text">{{author.name}} {{article.date.date()}}</p>
-            <a href="/account/{{author.name}}" class="btn btn-primary">Читати інші статті автора</a>
+            {% for tag in article.tags.split("..") %}
+                <a href="/search/{{tag}}" class="btn btn-primary" style="background-color: #5863F8; margin-bottom: 10px;">{{tag}}</a>
+            {% endfor %}
+            <br><br><a href="/account/{{author.name}}" class="btn btn-primary" style="margin-bottom: 10px;">Читати інші статті автора</a>
+            <br><h3 class="one-line">{{likes}}</h3>
+            <form action="/like/{{article.id}}" method="post" class="one-line">
+                <button class="invisible-button one-line">
+                {% if liked %}
+                    <img src="{{url_for('static', filename='img/liked.webp')}}" width="21" height="18">
+                {% else %}
+                    <img src="{{url_for('static', filename='img/like.png')}}" width="22" height="25">
+                {% endif %}</button>
+            </form>
+            <form action="/favourite/{{article.id}}" method="post" class="one-line">
+                <button class="invisible-button">
+                    <img src="{{url_for('static', filename='img/favourited.png' if favourited else 'img/favourite.png')}}" width="18" height="21">
+                </button>
+            </form>
+            <form action="/repost/{{article.id}}" method="post" class="one-line">
+                <button class="invisible-button">
+                    <img src="{{url_for('static', filename='img/reposted.png' if reposted else 'img/repost.png')}}" width="18" height="21">
+                </button>
+            </form>
+            </div>
         </div>
     </div>
+<br><form class="card cube-form" style="margin-left: 25%; animation: form 2s ease-in-out forwards; opacity: 0;" xmlns="http://www.w3.org/1999/html" method="post">
+        <div class="card-header"><strong>Напишіть свій коментар</strong></div>
+        <div class="card-body"><p class="card-text"><input class="form-control" type="text" name="comment"  placeholder="Ваш відгук або думка"></p></div>
+        <button type="submit" style="background-color: #5863F8; color: #EFF6E0; margin-left: 16px; width: 48%; border-radius: 8px;" >Додати</button>
+        <p></p>
+    </form>
+<br>{% if replies %}
+    {% for reply in replies %}
+        <br><div class="card cube-form"  style="margin-left: 25%; animation: form 2s ease-in-out forwards; opacity: 0; animation-delay: {{replies.index(reply) + 0.5}}s;" xmlns="http://www.w3.org/1999/html" >
+            <div class="card-header"><strong>{{reply.split(maxsplit=3)[2]}}</strong></div>
+            <div class="card-body">
+                <p class="card-text center">{{reply.split(maxsplit=3)[3]}}</p>
+                <a class="card-text one-line btn" href="/article/{{article.id}}/{{reply.split(maxsplit=3)[0]}} {{reply.split(maxsplit=3)[1]}} {{reply.split(maxsplit=3)[2]}}">
+                    {{reply.split(maxsplit=3)[0]}} {{reply.split(maxsplit=3)[1]}}</a>
+                {% if current_user.is_authenticated and current_user.name == reply.split(maxsplit=3)[2] %}
+                <a class="btn btn-warning" href="/article/{{article.id}}/{{reply.split(maxsplit=3)[0]}} {{reply.split(maxsplit=3)[1]}} {{reply.split(maxsplit=3)[2]}}/delete">Видалити</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
 {% endblock %}
